@@ -95,7 +95,6 @@ for entry in all:
     genre = lookup(entry,'Genre')
 
     if name is None or artist is None or album is None or genre is None : continue
-
     print(name, artist, album, count, rating, length)
 
     commnd.execute(''' 
@@ -119,4 +118,3 @@ for entry in all:
     commnd.execute(''' 
     INSERT OR REPLACE INTO Track(title,album_id,genre_id,len,rating,count) VALUES(?,?,?,?,?,?) 
     ''',(name,album_id,genre_id,length,rating,count))
-

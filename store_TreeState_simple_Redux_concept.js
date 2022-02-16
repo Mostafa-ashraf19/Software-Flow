@@ -62,6 +62,7 @@ function createStore(reducer) {
   const subscribe =
       (listener) => {
         listeners.push(listener)
+        // Run function if want to remove specific listener.
         return () => {
           listeners = listeners.filter((l) => l !== listener)
         }
@@ -86,6 +87,38 @@ const REMOVE_TODO = 'REMOVE_TODO'
 const TOGGLE_TODO = 'TOGGLE_TODO'
 const ADD_GOAL = 'ADD_GOAL'
 const REMOVE_GOAL = 'REMOVE_GOAL'
+
+// Action Creators
+function addTodo(todo) {
+  return {
+    type: ADD_TODO, todo
+  }
+}
+
+function removeTodo(id) {
+  return {
+    type: REMOVE_TODO, id
+  }
+}
+
+function toggleTodo(id) {
+  return {
+    type: TOGGLE_TODO, id
+  }
+}
+
+function removeGoal(id) {
+  return {
+    type: REMOVE_GOAL, id
+  }
+}
+
+function addGoal(goal) {
+  return {
+    type: ADD_GOAL, goal
+  }
+}
+
 
 function todos(state = [], action) {
   switch (action.type) {
@@ -129,7 +162,10 @@ function app(state = {}, action) {
 const store = createStore(app)
 
 
-store.subscribe(() => {console.log('The new state is: ', store.getState())})
+const unsubscribe =
+    store.subscribe(() => {console.log('The new state is: ', store.getState())})
+// unsubscribe()
 
-store.dispatch(
-    {type: 'ADD_TODO', todo: {id: 0, name: 'Learn Redux', complete: true}})
+store.dispatch(addTodo({id: 0, name: 'Learn Redux', complete: true}))
+store.dispatch(addTodo({id: 1, name: 'Read Book', complete: false}))
+store.dispatch(addGoal({id: 1, name: 'Win Match', complete: false}))

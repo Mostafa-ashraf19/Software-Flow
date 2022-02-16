@@ -1,3 +1,4 @@
+// Redux's state management.
 // Redux is a predictable state container for JavaScript apps.
 
 // Rule1: Only an event can change the state of the store.
